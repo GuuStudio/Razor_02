@@ -1,0 +1,35 @@
+@page
+@model Product_Razor_2__EF_IF_.Pages_Blog.DetailsModel
+
+@{
+    ViewData["Title"] = "Chi tiết";
+}
+
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Article.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Article.CreateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.CreateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Article.Content)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.Content)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-secondary" asp-page="./Edit" asp-route-id="@Model.Article?.ID">Chỉnh sửa</a> 
+    <a class="btn btn-secondary" asp-page="./Index">Quay lại trang chủ</a>
+</div>

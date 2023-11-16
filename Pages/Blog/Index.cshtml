@@ -1,0 +1,55 @@
+@page
+@model Product_Razor_2__EF_IF_.Pages_Blog.IndexModel
+
+@{
+    ViewData["Title"] = "Danh sách bài báo";
+
+    var paging = new {
+        currentPage = Model.CurrentPage,
+        countPages = Model.CountPage
+
+    };
+}
+
+
+
+<p>
+    <a class="btn btn-success" asp-page="Create">Tạo bài báo mới</a>
+</p>
+
+<partial name="_Paging"  model=@paging/>
+
+<form method="get" asp-page="./Index">
+    <input type="text" asp-for="SearchString"/>
+    <button type="submit">Tìm kiếm</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article[0].CreateTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Article) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                <a class="btn btn-secondary m-2" asp-page="./Edit" asp-route-id="@item.ID">Chỉnh sửa</a> 
+                <a class="btn btn-secondary" asp-page="./Details" asp-route-id="@item.ID">Chi tiết</a> 
+                <a class="btn btn-danger m-2" asp-page="./Delete" asp-route-id="@item.ID">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

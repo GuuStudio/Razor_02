@@ -1,0 +1,39 @@
+@page
+@model Product_Razor_2__EF_IF_.Pages_Blog.DeleteModel
+
+@{
+    ViewData["Title"] = "Xóa bài báo";
+}
+
+
+<h3>Bạn có chắc muốn xóa bài báo này?</h3>
+<div>
+    <h4>Article</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Article.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Article.CreateTime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.CreateTime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Article.Content)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.Content)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Article.ID" />
+        <input type="submit" value="Xóa" class="btn btn-danger" /> 
+        <a class="btn btn-secondary" asp-page="./Index">Quay lại danh sách</a>
+    </form>
+</div>
