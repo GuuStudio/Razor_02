@@ -1,10 +1,13 @@
 
 using Album.Models;
 using Album.MyContext;
+using AlBum.SendMail;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using static AlBum.SendMail.MailSettings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,7 +46,9 @@ builder.Services.Configure<IdentityOptions> (options => {
     options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
 
 });
-
+builder.Services.AddOptions();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<IEmailSender, SendMailService>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
