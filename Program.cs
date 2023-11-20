@@ -18,9 +18,8 @@ builder.Services.AddDbContext<MyBlogContext>( options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyBlogContext"));
 });
 
-builder.Services.AddIdentity<AppUser, IdentityRole> ()
-                .AddEntityFrameworkStores<MyBlogContext>()
-                .AddDefaultTokenProviders();
+builder.Services.AddDefaultIdentity<AppUser>()
+                .AddEntityFrameworkStores<MyBlogContext>();
 
 builder.Services.Configure<IdentityOptions> (options => {
     // Thiết lập về Password
@@ -75,4 +74,8 @@ app.MapRazorPages();
 app.Run();
 
 
+
+// câu lệnh cli phát sinh code CRUD
 // dotnet aspnet-codegenerator razorpage -m Article -dc MyBlogContext -udl -outDir Pages/Blog --referenceScriptLibraries
+
+
