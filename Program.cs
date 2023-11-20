@@ -1,10 +1,13 @@
 
 using Album.Models;
 using Album.MyContext;
+using AlBum.SendMail;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using static AlBum.SendMail.MailSettings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +18,8 @@ builder.Services.AddDbContext<MyBlogContext>( options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyBlogContext"));
 });
 
-builder.Services.AddIdentity<AppUser, IdentityRole> ()
-                .AddEntityFrameworkStores<MyBlogContext>()
-                .AddDefaultTokenProviders();
+builder.Services.AddDefaultIdentity<AppUser>()
+                .AddEntityFrameworkStores<MyBlogContext>();
 
 builder.Services.Configure<IdentityOptions> (options => {
     // Thiết lập về Password
@@ -43,7 +45,9 @@ builder.Services.Configure<IdentityOptions> (options => {
     options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
 
 });
-
+builder.Services.AddOptions();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<IEmailSender, SendMailService>();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -70,4 +74,8 @@ app.MapRazorPages();
 app.Run();
 
 
+
+// câu lệnh cli phát sinh code CRUD
 // dotnet aspnet-codegenerator razorpage -m Article -dc MyBlogContext -udl -outDir Pages/Blog --referenceScriptLibraries
+
+
